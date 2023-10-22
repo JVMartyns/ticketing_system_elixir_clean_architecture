@@ -1,5 +1,6 @@
 defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
   import Ecto.Query
+  alias TicketingSystem.Domain.Repositories.TicketRepo
   alias TicketingSystem.Infra.Repositories.Sqlite.Repo
   alias TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema
   alias TicketingSystem.Domain.Entities.Ticket
@@ -8,6 +9,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
 
   # Queries
 
+  @impl TicketRepo
   def get_by_code(code) do
     case Repo.get_by(TicketSchema, code: code) do
       nil -> {:error, :not_found}
@@ -15,6 +17,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
     end
   end
 
+  @impl TicketRepo
   def get_last_priority_ticket do
     query =
       from(t in TicketSchema,
@@ -29,6 +32,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
     end
   end
 
+  @impl TicketRepo
   def get_last_common_ticket do
     query =
       from(
@@ -44,6 +48,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
     end
   end
 
+  @impl TicketRepo
   def get_next_ticket(:common), do: do_get_next_ticket(false)
   def get_next_ticket(:priority), do: do_get_next_ticket(true)
 
@@ -62,18 +67,21 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
     end
   end
 
+  @impl TicketRepo
   def has_tickets_to_call do
     query = from(t in TicketSchema, where: t.called == false and t.priority == false)
 
     Repo.aggregate(query, :count) > 0
   end
 
+  @impl TicketRepo
   def has_priority_tickets_to_call() do
     query = from(t in TicketSchema, where: t.called == false and t.priority == true)
 
     Repo.aggregate(query, :count) > 0
   end
 
+  @impl TicketRepo
   def get_last_called_tickets(limit) do
     query =
       from(t in TicketSchema,
@@ -90,6 +98,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
 
   # Commands
 
+  @impl TicketRepo
   def insert(%Ticket{} = ticket) do
     changeset = TicketSchema.changeset(ticket)
 
@@ -99,6 +108,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
     end
   end
 
+  @impl TicketRepo
   def update(%Ticket{} = ticket, attrs) do
     changeset =
       ticket

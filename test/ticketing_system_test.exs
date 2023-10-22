@@ -1,20 +1,16 @@
 defmodule TicketingSystemTest do
   use ExUnit.Case
-  alias TicketingSystem.Domain.Entities.Ticket
-  alias TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl
-  alias TicketingSystem.Domain.Repositories.TicketRepo
-  alias TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema
-  alias TicketingSystem.Infra.Repositories.Sqlite.Repo
+
+  alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
   alias TicketingSystem.Factory
 
   doctest TicketingSystem
 
   @common_code_pattern ~r/^(C\d{3})$/
   @priority_code_pattern ~r/^(P\d{3})$/
-  @all_code_pattern ~r/^(C|P)(\d{3})$/
 
   setup do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SQLiteRepo)
   end
 
   test "generate new common ticket" do
