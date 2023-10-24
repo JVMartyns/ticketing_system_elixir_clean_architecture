@@ -28,7 +28,8 @@ defmodule TicketingSystem.MixProject do
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:ecto_sqlite3, "~> 0.12"},
       {:ex_machina, "~> 2.7.0", only: :test},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:clean_mixer, "~> 0.2", only: [:dev, :test], runtime: false}
     ]
   end
 
