@@ -3,7 +3,6 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
   alias TicketingSystem.Domain.Repositories.TicketRepo
   alias TicketingSystem.Infra.Repositories.Sqlite.Repo
   alias TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema
-  alias TicketingSystem.Domain.Entities.Ticket
 
   @behaviour TicketingSystem.Domain.Repositories.TicketRepo
 
@@ -13,7 +12,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
   def get_by_code(code) do
     case Repo.get_by(TicketSchema, code: code) do
       nil -> {:error, :not_found}
-      ticket -> {:ok, Ticket.from_map(ticket)}
+      ticket_schema -> {:ok, TicketSchema.to_ticket(ticket_schema)}
     end
   end
 
@@ -28,7 +27,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
 
     case Repo.one(query) do
       nil -> {:error, :not_found}
-      ticket -> {:ok, Ticket.from_map(ticket)}
+      ticket_schema -> {:ok, TicketSchema.to_ticket(ticket_schema)}
     end
   end
 
@@ -44,7 +43,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
 
     case Repo.one(query) do
       nil -> {:error, :not_found}
-      ticket -> {:ok, Ticket.from_map(ticket)}
+      ticket_schema -> {:ok, TicketSchema.to_ticket(ticket_schema)}
     end
   end
 
@@ -63,7 +62,7 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
 
     case Repo.one(query) do
       nil -> {:error, :not_found}
-      ticket -> {:ok, Ticket.from_map(ticket)}
+      ticket_schema -> {:ok, TicketSchema.to_ticket(ticket_schema)}
     end
   end
 
@@ -99,24 +98,24 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
   # Commands
 
   @impl TicketRepo
-  def insert(%Ticket{} = ticket) do
+  def insert(ticket) do
     changeset = TicketSchema.changeset(ticket)
 
     case Repo.insert(changeset) do
-      {:ok, ticket_schema} -> {:ok, Ticket.from_map(ticket_schema)}
+      {:ok, ticket_schema} -> {:ok, TicketSchema.to_ticket(ticket_schema)}
       {:error, _error} = error -> error
     end
   end
 
   @impl TicketRepo
-  def update(%Ticket{} = ticket, attrs) do
+  def update(ticket, attrs) do
     changeset =
       ticket
       |> TicketSchema.from_ticket()
       |> TicketSchema.changeset(attrs)
 
     case Repo.update(changeset) do
-      {:ok, ticket_schema} -> {:ok, Ticket.from_map(ticket_schema)}
+      {:ok, ticket_schema} -> {:ok, TicketSchema.to_ticket(ticket_schema)}
       {:error, _error} = error -> error
     end
   end

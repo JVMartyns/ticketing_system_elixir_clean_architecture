@@ -34,11 +34,20 @@ defmodule TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema do
     |> validate_required(@fields)
   end
 
-  def from_ticket(ticket) do
+  def from_ticket(%Ticket{} = ticket) do
     ticket
     |> Map.from_struct()
     |> changeset()
     |> put_change(:id, ticket.id)
     |> apply_changes()
+  end
+
+  def to_ticket(%__MODULE__{} = ticket_schema) do
+    %Ticket{
+      id: ticket_schema.id,
+      code: ticket_schema.code,
+      called: ticket_schema.called,
+      priority: ticket_schema.priority
+    }
   end
 end

@@ -2,8 +2,6 @@ defmodule TicketingSystem.Domain.Entities.Ticket do
   defstruct [
     :id,
     :code,
-    :inserted_at,
-    :updated_at,
     called: false,
     priority: false
   ]
@@ -12,33 +10,24 @@ defmodule TicketingSystem.Domain.Entities.Ticket do
           id: integer | nil,
           code: String.t(),
           called: boolean,
-          priority: boolean,
-          inserted_at: DateTime.t() | nil,
-          updated_at: DateTime.t() | nil
+          priority: boolean
         }
 
   @spec new(code :: String.t()) :: t()
   @spec new(code :: String.t(), opts :: Keyword.t()) :: t()
 
   def new(code, opts \\ []) when is_binary(code) do
-    %__MODULE__{code: code, priority: opts[:priority] || false}
+    with {:ok, code} <- validate_code(code) do
+      %__MODULE__{code: code, priority: opts[:priority] || false}
+    end
   end
 
-  def from_map(%{
-        id: id,
-        code: code,
-        called: called,
-        priority: priority,
-        inserted_at: inserted_at,
-        updated_at: updated_at
-      }) do
-    %__MODULE__{
-      id: id,
-      code: code,
-      called: called,
-      priority: priority,
-      inserted_at: inserted_at,
-      updated_at: updated_at
-    }
+  defp validate_code(code) when is_binary(code) do
+    pattern = ~r/^[C|P]\d{3}$/
+
+    case Regex.match?(pattern, code) do
+      true -> {:ok, code}
+      false -> {:error, :invalid_code}
+    end
   end
 end
