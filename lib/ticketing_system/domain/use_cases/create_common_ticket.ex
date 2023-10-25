@@ -1,13 +1,12 @@
 defmodule TicketingSystem.Domain.UseCases.CreateCommonTicket do
   alias TicketingSystem.Domain.Entities.Ticket
   alias TicketingSystem.Domain.Repositories.TicketRepo
-  alias TicketingSystem.Domain.UseCases.GenerateNextTicketCode
 
   @default_ticket_code "C000"
 
   def call do
     get_last_common_ticket_code()
-    |> GenerateNextTicketCode.call()
+    |> Ticket.next_code()
     |> Ticket.new()
     |> TicketRepo.insert()
   end

@@ -1,13 +1,12 @@
 defmodule TicketingSystem.Domain.UseCases.CreatePriorityTicket do
   alias TicketingSystem.Domain.Entities.Ticket
   alias TicketingSystem.Domain.Repositories.TicketRepo
-  alias TicketingSystem.Domain.UseCases.GenerateNextTicketCode
 
   @default_ticket_code "P000"
 
   def call do
     get_last_priority_ticket_code()
-    |> GenerateNextTicketCode.call()
+    |> Ticket.next_code()
     |> Ticket.new(priority: true)
     |> TicketRepo.insert()
   end

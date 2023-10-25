@@ -13,21 +13,30 @@ defmodule TicketingSystem.Domain.Entities.Ticket do
           priority: boolean
         }
 
+  @common_code_prefix "C"
+  @priority_code_prefix "P"
+
   @spec new(code :: String.t()) :: t()
   @spec new(code :: String.t(), opts :: Keyword.t()) :: t()
 
   def new(code, opts \\ []) when is_binary(code) do
-    with {:ok, code} <- validate_code(code) do
-      %__MODULE__{code: code, priority: opts[:priority] || false}
-    end
+    %__MODULE__{code: code, priority: opts[:priority] || false}
   end
 
-  defp validate_code(code) when is_binary(code) do
-    pattern = ~r/^[C|P]\d{3}$/
+  def next_code(@common_code_prefix <> code) do
+    generate_ticket_code(code, @common_code_prefix)
+  end
 
-    case Regex.match?(pattern, code) do
-      true -> {:ok, code}
-      false -> {:error, :invalid_code}
-    end
+  def next_code(@priority_code_prefix <> code) do
+    generate_ticket_code(code, @priority_code_prefix)
+  end
+
+  defp generate_ticket_code(code, prefix) do
+    code
+    |> String.to_integer()
+    |> Kernel.+(1)
+    |> Integer.to_string()
+    |> String.pad_leading(3, "0")
+    |> (&(prefix <> &1)).()
   end
 end

@@ -14,6 +14,10 @@ defmodule TicketingSystem.Infra.Services.TicketPriorityDispatcher do
     GenServer.call(__MODULE__, :next_ticket)
   end
 
+  def current_ticket_priority do
+    GenServer.call(__MODULE__, :current_ticket)
+  end
+
   # Server (callbacks)
 
   @impl true
@@ -24,5 +28,10 @@ defmodule TicketingSystem.Infra.Services.TicketPriorityDispatcher do
   @impl true
   def handle_call(:next_ticket, _from, [head | tail]) do
     {:reply, head, tail ++ [head]}
+  end
+
+  @impl true
+  def handle_call(:current_ticket, _from, [head | _] = stack) do
+    {:reply, head, stack}
   end
 end

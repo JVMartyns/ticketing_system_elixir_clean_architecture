@@ -6,7 +6,6 @@
     {"create_priority_ticket", "lib/ticketing_system/domain/use_cases/create_priority_ticket.ex", group: :use_cases},
     {"call_next_ticket", "lib/ticketing_system/domain/use_cases/call_next_ticket.ex", group: :use_cases},
     {"call_ticket_by_code", "lib/ticketing_system/domain/use_cases/call_ticket_by_code.ex", group: :use_cases},
-    {"generate_next_ticket_code", "lib/ticketing_system/domain/use_cases/generate_next_ticket_code.ex", group: :use_cases},
     {"get_last_called_tickets", "lib/ticketing_system/domain/use_cases/get_last_called_tickets.ex", group: :use_cases},
     {"create_common_ticket", "lib/ticketing_system/domain/use_cases/create_common_ticket.ex", group: :use_cases},
     {"ticket_controller", "lib/ticketing_system/adapters/controllers/ticket_controller.ex", group: :adapters},
@@ -17,3 +16,17 @@
     {"ticket_priority_dispatcher", "lib/ticketing_system/infra/services/ticket_priority_dispatcher.ex", group: :infra},
   ]
 ]
+
+
+# [
+#   components: [
+#     {"ticketing_system", "lib/ticketing_system.ex", group: :entrypoint},
+#     {"entity", "lib/ticketing_system/domain/entities", group: :domain},
+#     {"controller", "lib/ticketing_system/adapters/controllers", group: :adapters},
+#     {"view", "lib/ticketing_system/adapters/views", group: :adapters},
+#     {"use_case", "lib/ticketing_system/domain/use_cases", group: :domain},
+#     {"repository", "lib/ticketing_system/domain/repositories", group: :domain},
+#     {"repository_impl", "lib/ticketing_system/infra/repositories", group: :infra},
+#     {"priority_dispatcher", "lib/ticketing_system/infra/services", group: :infra}
+#   ]
+# ]

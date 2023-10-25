@@ -7,6 +7,7 @@ defmodule TicketingSystem.Application do
 
   alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
   alias TicketingSystem.Infra.Services.TicketPriorityDispatcher
+  alias TicketingSystem.Infra.Services.TicketCodeDispatcher
 
   @impl true
   def start(_type, _args) do
@@ -14,7 +15,8 @@ defmodule TicketingSystem.Application do
       # Starts a worker by calling: TicketingSystem.Worker.start_link(arg)
       # {TicketingSystem.Worker, arg}
       SQLiteRepo,
-      {TicketPriorityDispatcher, [:priority, :priority, :common]}
+      {TicketPriorityDispatcher, [:priority, :priority, :common]},
+      TicketCodeDispatcher
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
