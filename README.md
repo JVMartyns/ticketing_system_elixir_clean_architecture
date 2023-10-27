@@ -1,22 +1,22 @@
 # TicketingSystem
 
-**TODO: Add description**
+## Introdução
 
-## Installation
+TicketingSystem é um sistema de chamar de senhas desenvolvido com o principal objetivo de aplicar os conceitos da Arquitetura Limpa.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ticketing_system` to your list of dependencies in `mix.exs`:
+### Funcionalidades
 
-```elixir
-def deps do
-  [
-    {:ticketing_system, "~> 0.1.0"}
-  ]
-end
-```
+- Gerar novo ticket comum
+- Gerar novo ticket prioritário
+- Chamar a próxima ticket
+- Exibir a ticket atual
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/ticketing_system>.
+### Regras de negócio
 
-# ticketing_system_elixir_clean_architecture
+- O primeiro ticket chamado deve ser prioritário
+- A cada dois tickets prioritários um ticket comum deve ser chamado
+
+### Exemplo de tickets
+
+- prioritário: P091
+- comum: C137

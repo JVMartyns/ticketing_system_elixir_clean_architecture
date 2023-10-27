@@ -1,6 +1,6 @@
 import Config
 
-alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
+alias TicketingSystem.Infra.Persistence.SqliteRepo, as: SQLiteRepo
 
 config :ticketing_system, SQLiteRepo,
   database: "sqlite.db",

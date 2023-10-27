@@ -1,4 +1,4 @@
-defmodule TicketingSystem.Infra.Repositories.Sqlite.Repo.Migrations.CreateTicketTable do
+defmodule TicketingSystem.Infra.Persistence.SqliteRepo.Migrations.CreateTicketTable do
   use Ecto.Migration
 
   def up do

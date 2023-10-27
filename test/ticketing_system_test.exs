@@ -1,7 +1,7 @@
 defmodule TicketingSystemTest do
   use ExUnit.Case
 
-  alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
+  alias TicketingSystem.Infra.Persistence.SqliteRepo, as: SQLiteRepo
   alias TicketingSystem.Factory
 
   doctest TicketingSystem

@@ -3,7 +3,7 @@ defmodule TicketingSystem.Domain.UseCases.CreateCommonTicketTest do
 
   alias TicketingSystem.Domain.Entities.Ticket
   alias TicketingSystem.Domain.UseCases.CreateCommonTicket
-  alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
+  alias TicketingSystem.Infra.Persistence.SqliteRepo, as: SQLiteRepo
 
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(SQLiteRepo)

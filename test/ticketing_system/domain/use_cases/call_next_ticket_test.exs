@@ -5,7 +5,7 @@
 #   alias TicketingSystem.Domain.UseCases.CallNextTicket
 #   alias TicketingSystem.Infra.Services.TicketPriorityDispatcher
 #   alias TicketingSystem.Factory
-#   alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
+#   alias TicketingSystem.Infra.Persistence.SqliteRepo, as: SQLiteRepo
 
 #   setup do
 #     :ok = Ecto.Adapters.SQL.Sandbox.checkout(SQLiteRepo)

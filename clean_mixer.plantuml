@@ -11,96 +11,115 @@ D = Distance = |A+I-1|
 Tf = Total files
 Pf = Public files
 Ain = Abstract in
-Aout = Abstract out
-U = Usage = UsedFiles / Pf 
+Aout = Abstract out 
  endlegend
-rectangle ticketing_system  [ =ticketing_system 
+package "services" {
+rectangle TicketPriorityDispatcher  [ =TicketPriorityDispatcher 
+
+ In=2 Out=0 S=1.0 (I=0.0) 
+A=1.0 D=0.0 (0.0σ) 
+Tf=1 Pf=1 Ain=2 Aout=0 ]
+rectangle TicketPriorityDispatcherImpl  [ =TicketPriorityDispatcherImpl 
+
+ In=0 Out=1 S=0.0 (I=1.0) 
+A=0.0 D=0.0 (0.0σ) 
+Tf=1 Pf=0 Ain=0 Aout=1 ]
+}
+package "entrypoint" {
+rectangle TicketingSystem  [ =TicketingSystem 
 
  In=0 Out=1 S=0.0 (I=1.0) 
 A=0.0 D=0.0 (0.0σ) 
 Tf=1 Pf=0 Ain=0 Aout=0 ]
-rectangle ticket  [ =ticket 
+}
+package "entities" {
+rectangle Ticket  [ =Ticket 
 
  In=3 Out=0 S=1.0 (I=0.0) 
-A=0.0 D=1.0 (2.68σ) 
+A=0.0 D=1.0 (2.75σ) 
 Tf=1 Pf=1 Ain=0 Aout=0 ]
-rectangle ticket_repo  [ =ticket_repo 
+}
+package "repositories" {
+rectangle TicketRepo  [ =TicketRepo 
 
  In=6 Out=0 S=1.0 (I=0.0) 
 A=1.0 D=0.0 (0.0σ) 
 Tf=1 Pf=1 Ain=6 Aout=0 ]
-rectangle create_priority_ticket  [ =create_priority_ticket 
-
- In=1 Out=2 S=0.33 (I=0.67) 
-A=0.0 D=0.33 (0.89σ) 
-Tf=1 Pf=1 Ain=0 Aout=1 ]
-rectangle call_next_ticket  [ =call_next_ticket 
-
- In=1 Out=2 S=0.33 (I=0.67) 
-A=0.0 D=0.33 (0.89σ) 
-Tf=1 Pf=1 Ain=0 Aout=1 ]
-rectangle call_ticket_by_code  [ =call_ticket_by_code 
+rectangle TicketSchema  [ =TicketSchema 
 
  In=1 Out=1 S=0.5 (I=0.5) 
-A=0.0 D=0.5 (1.34σ) 
-Tf=1 Pf=1 Ain=0 Aout=1 ]
-rectangle get_last_called_tickets  [ =get_last_called_tickets 
-
- In=1 Out=1 S=0.5 (I=0.5) 
-A=0.0 D=0.5 (1.34σ) 
-Tf=1 Pf=1 Ain=0 Aout=1 ]
-rectangle create_common_ticket  [ =create_common_ticket 
-
- In=1 Out=2 S=0.33 (I=0.67) 
-A=0.0 D=0.33 (0.89σ) 
-Tf=1 Pf=1 Ain=0 Aout=1 ]
-rectangle ticket_controller  [ =ticket_controller 
-
- In=1 Out=6 S=0.14 (I=0.86) 
-A=0.0 D=0.14 (0.38σ) 
+A=0.0 D=0.5 (1.38σ) 
 Tf=1 Pf=1 Ain=0 Aout=0 ]
-rectangle ticket_view  [ =ticket_view 
-
- In=1 Out=0 S=1.0 (I=0.0) 
-A=0.0 D=1.0 (2.68σ) 
-Tf=1 Pf=1 Ain=0 Aout=0 ]
-rectangle ticket_schema  [ =ticket_schema 
-
- In=1 Out=1 S=0.5 (I=0.5) 
-A=0.0 D=0.5 (1.34σ) 
-Tf=1 Pf=1 Ain=0 Aout=0 ]
-rectangle ticket_repo_impl  [ =ticket_repo_impl 
+rectangle TicketRepoImpl  [ =TicketRepoImpl 
 
  In=0 Out=3 S=0.0 (I=1.0) 
 A=0.0 D=0.0 (0.0σ) 
 Tf=1 Pf=0 Ain=0 Aout=1 ]
-rectangle sqlite_repo  [ =sqlite_repo 
+}
+package "use_cases" {
+rectangle CreatePriorityTicket  [ =CreatePriorityTicket 
+
+ In=1 Out=2 S=0.33 (I=0.67) 
+A=0.0 D=0.33 (0.92σ) 
+Tf=1 Pf=1 Ain=0 Aout=1 ]
+rectangle CallNextTicket  [ =CallNextTicket 
+
+ In=1 Out=2 S=0.33 (I=0.67) 
+A=0.0 D=0.33 (0.92σ) 
+Tf=1 Pf=1 Ain=0 Aout=2 ]
+rectangle CallTicketByCode  [ =CallTicketByCode 
+
+ In=1 Out=1 S=0.5 (I=0.5) 
+A=0.0 D=0.5 (1.38σ) 
+Tf=1 Pf=1 Ain=0 Aout=1 ]
+rectangle GetLastCalledTickets  [ =GetLastCalledTickets 
+
+ In=1 Out=1 S=0.5 (I=0.5) 
+A=0.0 D=0.5 (1.38σ) 
+Tf=1 Pf=1 Ain=0 Aout=1 ]
+rectangle CreateCommonTicket  [ =CreateCommonTicket 
+
+ In=1 Out=2 S=0.33 (I=0.67) 
+A=0.0 D=0.33 (0.92σ) 
+Tf=1 Pf=1 Ain=0 Aout=1 ]
+}
+package "adapters" {
+rectangle TicketController  [ =TicketController 
+
+ In=1 Out=6 S=0.14 (I=0.86) 
+A=0.0 D=0.14 (0.39σ) 
+Tf=1 Pf=1 Ain=0 Aout=0 ]
+rectangle TicketView  [ =TicketView 
 
  In=1 Out=0 S=1.0 (I=0.0) 
-A=0.0 D=1.0 (2.68σ) 
+A=0.0 D=1.0 (2.75σ) 
 Tf=1 Pf=1 Ain=0 Aout=0 ]
-rectangle ticket_priority_dispatcher  [ =ticket_priority_dispatcher 
+}
+package "persistence" {
+rectangle SqliteRepo  [ =SqliteRepo 
 
  In=1 Out=0 S=1.0 (I=0.0) 
-A=0.0 D=1.0 (2.68σ) 
+A=0.0 D=1.0 (2.75σ) 
 Tf=1 Pf=1 Ain=0 Aout=0 ]
-[ticketing_system] -[#black]-> [ticket_controller] : U=1.0
-[create_priority_ticket] -[#black]-> [ticket_repo] : U=1.0
-[create_priority_ticket] -[#black]-> [ticket] : U=1.0
-[call_next_ticket] -[#black]-> [ticket_priority_dispatcher] : U=1.0
-[call_next_ticket] -[#black]-> [ticket_repo] : U=1.0
-[call_ticket_by_code] -[#black]-> [ticket_repo] : U=1.0
-[get_last_called_tickets] -[#black]-> [ticket_repo] : U=1.0
-[create_common_ticket] -[#black]-> [ticket_repo] : U=1.0
-[create_common_ticket] -[#black]-> [ticket] : U=1.0
-[ticket_controller] -[#black]-> [ticket_view] : U=1.0
-[ticket_controller] -[#black]-> [create_common_ticket] : U=1.0
-[ticket_controller] -[#black]-> [get_last_called_tickets] : U=1.0
-[ticket_controller] -[#black]-> [call_ticket_by_code] : U=1.0
-[ticket_controller] -[#black]-> [call_next_ticket] : U=1.0
-[ticket_controller] -[#black]-> [create_priority_ticket] : U=1.0
-[ticket_schema] -[#black]-> [ticket] : U=1.0
-[ticket_repo_impl] -[#black]-> [sqlite_repo] : U=1.0
-[ticket_repo_impl] -[#black]-> [ticket_schema] : U=1.0
-[ticket_repo_impl] -[#black]-> [ticket_repo] : U=1.0
+}
+[TicketingSystem] -[#black]-> [TicketController]
+[CreatePriorityTicket] -[#black]-> [TicketRepo]
+[CreatePriorityTicket] -[#black]-> [Ticket]
+[CallNextTicket] -[#black]-> [TicketPriorityDispatcher]
+[CallNextTicket] -[#black]-> [TicketRepo]
+[CallTicketByCode] -[#black]-> [TicketRepo]
+[GetLastCalledTickets] -[#black]-> [TicketRepo]
+[CreateCommonTicket] -[#black]-> [TicketRepo]
+[CreateCommonTicket] -[#black]-> [Ticket]
+[TicketController] -[#black]-> [TicketView]
+[TicketController] -[#black]-> [CreateCommonTicket]
+[TicketController] -[#black]-> [GetLastCalledTickets]
+[TicketController] -[#black]-> [CallTicketByCode]
+[TicketController] -[#black]-> [CallNextTicket]
+[TicketController] -[#black]-> [CreatePriorityTicket]
+[TicketSchema] -[#black]-> [Ticket]
+[TicketRepoImpl] -[#black]-> [SqliteRepo]
+[TicketRepoImpl] -[#black]-> [TicketSchema]
+[TicketRepoImpl] -[#black]-> [TicketRepo]
+[TicketPriorityDispatcherImpl] -[#black]-> [TicketPriorityDispatcher]
 @enduml

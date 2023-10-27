@@ -1,5 +1,5 @@
 defmodule TicketingSystem.Factory do
-  use ExMachina.Ecto, repo: TicketingSystem.Infra.Repositories.Sqlite.Repo
+  use ExMachina.Ecto, repo: TicketingSystem.Infra.Persistence.SqliteRepo
 
   alias TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema
 

@@ -1,7 +1,7 @@
 defmodule TicketingSystem.Infra.Repositories.Sqlite.TicketRepoImpl do
   import Ecto.Query
+  alias TicketingSystem.Infra.Persistence.SqliteRepo, as: Repo
   alias TicketingSystem.Domain.Repositories.TicketRepo
-  alias TicketingSystem.Infra.Repositories.Sqlite.Repo
   alias TicketingSystem.Infra.Repositories.Sqlite.Schemas.TicketSchema
 
   @behaviour TicketingSystem.Domain.Repositories.TicketRepo

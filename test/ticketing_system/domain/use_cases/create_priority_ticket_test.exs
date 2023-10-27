@@ -3,7 +3,7 @@ defmodule TicketingSystem.Domain.UseCases.CreatePriorityTicketTest do
 
   alias TicketingSystem.Domain.Entities.Ticket
   alias TicketingSystem.Domain.UseCases.CreatePriorityTicket
-  alias TicketingSystem.Infra.Repositories.Sqlite.Repo, as: SQLiteRepo
+  alias TicketingSystem.Infra.Persistence.SqliteRepo, as: SQLiteRepo
 
   setup do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(SQLiteRepo)

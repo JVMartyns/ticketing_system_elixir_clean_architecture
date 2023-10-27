@@ -1,4 +1,5 @@
-defmodule TicketingSystem.Infra.Services.TicketPriorityDispatcher do
+defmodule TicketingSystem.Infra.Services.TicketPriorityDispatcherImpl do
+  alias TicketingSystem.Domain.Services.TicketPriorityDispatcher
   use GenServer
 
   # See https://hexdocs.pm/elixir/GenServer.html
@@ -6,14 +7,18 @@ defmodule TicketingSystem.Infra.Services.TicketPriorityDispatcher do
 
   # Client (public)
 
+  @behaviour TicketingSystem.Domain.Services.TicketPriorityDispatcher
+
   def start_link(stack) when is_list(stack) do
     GenServer.start_link(__MODULE__, stack, name: __MODULE__)
   end
 
+  @impl TicketPriorityDispatcher
   def next_ticket_priority do
     GenServer.call(__MODULE__, :next_ticket)
   end
 
+  @impl TicketPriorityDispatcher
   def current_ticket_priority do
     GenServer.call(__MODULE__, :current_ticket)
   end

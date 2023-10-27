@@ -1,6 +1,6 @@
 defmodule TicketingSystem.Domain.UseCases.CallNextTicket do
   alias TicketingSystem.Domain.Repositories.TicketRepo
-  alias TicketingSystem.Infra.Services.TicketPriorityDispatcher
+  alias TicketingSystem.Domain.Services.TicketPriorityDispatcher
 
   def call do
     case TicketRepo.has_tickets_to_call() do
