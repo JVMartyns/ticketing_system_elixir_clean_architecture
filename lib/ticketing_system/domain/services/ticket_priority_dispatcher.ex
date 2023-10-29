@@ -1,6 +1,6 @@
 defmodule TicketingSystem.Domain.Services.TicketPriorityDispatcher do
-  @callback next_ticket_priority() :: String.t()
-  @callback current_ticket_priority() :: String.t()
+  @callback next_ticket_priority() :: atom()
+  @callback current_ticket_priority() :: atom()
 
   def next_ticket_priority, do: impl().next_ticket_priority()
   def current_ticket_priority, do: impl().current_ticket_priority()
